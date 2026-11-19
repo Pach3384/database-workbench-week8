@@ -1,0 +1,44 @@
+-- ============================================================================
+-- Question 1: Creating a Complete Database Backup
+-- ============================================================================
+-- System terminal command (run in bash / WSL / terminal, NOT inside SQL):
+--   mysqldump -u root -p sales > sales_backup.sql
+--
+-- What the command does:
+--   - `mysqldump`: Invokes MySQL's logical backup utility to generate SQL
+--     statements (DROP/CREATE statements and INSERT statements) that can
+--     recreate the database structure and data.
+--   - `-u root`: Connects to the MySQL server as the `root` user.
+--   - `-p`: Prompts interactively for the `root` password so it is not typed
+--     in plain text on the command line.
+--   - `sales`: Specifies the single database (`sales`) to back up.
+--   - `> sales_backup.sql`: Redirects the generated SQL output into a file
+--     named `sales_backup.sql`.
+--
+-- Why regular database backups are important:
+--   Regular backups protect against accidental data loss or corruption (such as
+--   an errant DELETE/UPDATE or a failed schema migration), hardware failure,
+--   ransomware/security incidents, and human error. They provide a reliable
+--   recovery point so critical business data can be restored quickly.
+
+
+-- ============================================================================
+-- Question 2: Backing Up All Databases
+-- ============================================================================
+-- System terminal command (run in bash / WSL / terminal, NOT inside SQL):
+--   mysqldump -u root -p --all-databases > all_databases_backup.sql
+--
+-- What the command does:
+--   - `--all-databases`: Instructs `mysqldump` to export every schema/database
+--     present on the MySQL server rather than just one database.
+--   - `-u root` and `-p`: Authenticates as `root` and prompts securely for the
+--     database password.
+--   - `> all_databases_backup.sql`: Saves the full multi-database dump into
+--     `all_databases_backup.sql`.
+--
+-- Why backing up all databases is important before migrating to another server:
+--   During a server migration, backing up all databases ensures that dependent
+--   or related databases, configuration schemas, and cross-database objects
+--   are captured together in one consistent snapshot. It also provides a full
+--   safety net to roll back or rebuild the environment on the target server if
+--   something goes wrong during transfer or cutover.
